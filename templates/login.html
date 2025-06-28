@@ -1,40 +1,59 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg mt-5">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Авторизация</h3>
+                </div>
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+                <div class="card-body">
+                    {% if form.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        Неверное имя пользователя или пароль. Пожалуйста, попробуйте снова.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
 
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   class="form-control {% if form.errors %}is-invalid{% endif %}"
+                                   id="id_username"
+                                   name="username"
+                                   placeholder="Имя пользователя"
+                                   required
+                                   autofocus>
+                            <label for="id_username">Имя пользователя</label>
+                        </div>
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
-<tr>
+                        <div class="form-floating mb-4">
+                            <input type="password"
+                                   class="form-control {% if form.errors %}is-invalid{% endif %}"
+                                   id="id_password"
+                                   name="password"
+                                   placeholder="Пароль"
+                                   required>
+                            <label for="id_password">Пароль</label>
+                        </div>
 
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
+                        <button type="submit" class="btn btn-primary w-100 py-2 mb-3">Войти</button>
 
-<input type="submit" value="login">
-<input type="hidden" name="next" value="{{ next }}">
-</form>
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </form>
+                </div>
 
-{# Assumes you set up the password_reset view in your URLconf #}
-{#<p><a href="{% url 'password_reset' %}">Lost password?</a></p>#}
-
+                <div class="card-footer text-center py-3">
+                {% comment %}    <div class="small">
+                        <a href="{% url 'password_reset' %}" class="text-decoration-none">Забыли пароль?</a>
+                    </div>{% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

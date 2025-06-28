@@ -1,1 +1,2 @@
 import BibliographicSystem.author.models
+import BibliographicSystem.publication.models
