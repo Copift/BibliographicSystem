@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Шапка профиля -->
+    <div class="row mb-4">
+        <!-- Фото и контакты -->
+        <div class="col-md-3">
+            <div class="card shadow-sm mb-3">
+                <div class="card-body text-center">
+                    {% if author.photo %}
+                        <img src="{{ author.photo.url }}" class="img-fluid rounded-circle mb-3" 
+                             style="width: 150px; height: 150px; object-fit: cover;">
+                    {% else %}
+                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mb-3" 
+                             style="width: 150px; height: 150px;">
+                            <i class="bi bi-person fs-1 text-muted"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <h4>{{ author.last_name }} {{ author.first_name }}</h4>
+                    <h5 class="text-muted">{{ author.position }}</h5>
+                    
+                    {% if author.degree %}
+                        <span class="badge bg-primary mb-2">
+                            {{ author.get_degree_display }}
+                            {% if author.degree_year %}
+                                ({{ author.degree_year }})
+                            {% endif %}
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Блок контактов -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Контакты</h5>
+                    <p>
+                        <i class="bi bi-envelope me-2"></i>
+                        <a href="mailto:{{ author.email }}">{{ author.email }}</a>
+                    </p>
+                    <!-- Блок научных профилей -->
+<div class="card shadow-sm mt-3">
+    <div class="card-body">
+        <h5 class="card-title mb-3">Научные профили</h5>
+
+        <div class="d-flex flex-wrap gap-2">
+            {% if author.orcid_url %}
+                <a href="{{ author.orcid_url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-person-badge me-1"></i> ORCID
+                </a>
+            {% endif %}
+
+            {% if author.scopus_url %}
+                <a href="{{ author.scopus_url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-journal me-1"></i> Scopus
+                </a>
+            {% endif %}
+
+            {% if author.wos_url %}
+                <a href="{{ author.wos_url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-journal-text me-1"></i> WoS
+                </a>
+            {% endif %}
+
+            {% if author.rinz_url %}
+                <a href="{{ author.rinz_url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-book me-1"></i> РИНЦ
+                </a>
+            {% endif %}
+
+            {% if author.scholar_url %}
+                <a href="{{ author.scholar_url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-google me-1"></i> Scholar
+                </a>
+            {% endif %}
+
+            {% if not author.orcid_url and not author.scopus_url and not author.wos_url and not author.rinz_url and not author.scholar_url %}
+                <span class="text-muted">Профили не указаны</span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Основная информация -->
+        <div class="col-md-9">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <!-- Аннотация -->
+                    {% if author.annotation %}
+                        <div class="mb-4">
+                            <h4>О себе</h4>
+                            <p>{{ author.annotation }}</p>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Научные показатели -->
+                    <div class="row mb-4">
+                        <div class="col-md-3 col-6 text-center">
+                            <div class="border p-2 rounded">
+                                <h3 class="text-primary mb-0">{{ author.publications.count }}</h3>
+                                <small class="text-muted">Публикаций</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Секция публикаций -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-light">
+            <h3 class="mb-0">Список публикаций</h3>
+        </div>
+        
+        <div class="card-body p-0">
+            <div class="list-group list-group-flush">
+                {% for article in author.publications.all|dictsortreversed:"year" %}
+                {% include "publication/publication_base.html" with publication=article %}
+                {% empty %}
+                <div class="list-group-item">
+                    <p class="text-center text-muted my-3">Публикации не найдены</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h1>{{ journal.title }}</h1>
+            
+            <div class="row mb-4">
+                {% if journal.quartile != 'N/A' %}
+                <div class="col-md-4">
+                    <h5>Квартиль:</h5>
+                    <span class="badge bg-primary fs-6">{{ journal.get_quartile_display }}</span>
+                </div>
+                {% endif %}
+                
+                {% if journal.whitelist_level != 'none' %}
+                <div class="col-md-4">
+                    <h5>Уровень белого списка:</h5>
+                    <span class="badge bg-success fs-6">{{ journal.get_whitelist_level_display }}</span>
+                </div>
+                {% endif %}
+                
+                {% if journal.website %}
+                <div class="col-md-12 mt-3">
+                    <h5>Сайт журнала:</h5>
+                    <a href="{{ journal.website }}" target="_blank" class="text-decoration-none">
+                        {{ journal.website }}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <h3 class="mt-5 mb-4">Публикации в журнале</h3>
+            
+            {% if publications %}
+            <div class="list-group">
+                {% for publication in publications %}
+                <a href="{% url 'publication_detail' publication.pk %}" 
+                   class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ publication.title }}</h5>
+                        <small class="text-muted">{{ publication.year }}</small>
+                    </div>
+                    
+                    <p class="mb-1">
+                        {% for author in publication.authors.all %}
+                            {{ author.last_name }} {{ author.first_name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                В этом журнале пока нет публикаций
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

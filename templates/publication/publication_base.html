@@ -1,0 +1,60 @@
+{# templates/publications/includes/publication_card.html #}
+<div class="publication-card list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">
+            <a href="{% url 'publication_detail' publication.pk %}" class="text-decoration-none text-dark">
+                {{ publication.title }}
+            </a>
+        </h5>
+        <small class="text-muted">{{ publication.year }}</small>
+    </div>
+
+    <p class="mb-1">
+        {% for author in publication.authors.all %}
+            <a href="{% url 'author_profile
+            ' author.pk %}" class="text-decoration-none">
+                {{ author.last_name }} {{ author.first_name }}
+            </a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+
+    {% if publication.doi %}
+        <small>
+            <a href="https://doi.org/{{ publication.doi }}" target="_blank">
+                DOI: {{ publication.doi }}
+            </a>
+        </small>
+    {% endif %}
+
+    {% if publication.url %}
+        <small>
+            <a href="{{ publication.url }}" target="_blank">
+                ссылка на статью
+            </a>
+        </small>
+    {% endif %}
+
+    <!-- Блок журналов -->
+    {% if publication.journals.all %}
+    <div class="mt-2">
+        <small class="text-muted">Журналы:</small>
+        {% for journal in publication.journals.all %}
+            <a href="{% url 'journal_detail' journal.pk %}" class="badge bg-info text-decoration-none me-1">
+                {{ journal.title }}
+            </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Блок конференций -->
+    {% if publication.conferences.all %}
+    <div class="mt-2">
+        <small class="text-muted">Конференции:</small>
+        {% for conference in publication.conferences.all %}
+            <a href="{% url 'conference_detail' conference.pk %}" class="badge bg-warning text-dark text-decoration-none me-1">
+                {{ conference.title }} ({{ conference.start_date.year }})
+            </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
