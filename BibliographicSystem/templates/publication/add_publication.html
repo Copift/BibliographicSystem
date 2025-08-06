@@ -1,0 +1,329 @@
+{% extends "../base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Добавить новую публикацию</h4>
+        </div>
+        <div class="card-body">
+                 <form method="post" enctype="multipart/form-data" action="{% url 'add_publication' %}">
+
+                {% csrf_token %}
+
+                <!-- Блок загрузки по DOI -->
+                <div class="mb-4">
+                    <label for="doiInput" class="form-label">Загрузить по DOI</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="doiInput" placeholder="Введите DOI">
+                        <button class="btn btn-outline-secondary" type="button" id="doiLoadBtn">Загрузить</button>
+                    </div>
+                    <div class="form-text">Введите DOI публикации для автоматического заполнения данных</div>
+                </div>
+
+                <!-- Поле выбора типа публикации -->
+                <div class="mb-3">
+                    <label class="form-label">Тип публикации*</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="publication_type" id="typeJournal" value="journal" required>
+                            <label class="form-check-label" for="typeJournal">Статья в журнале</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="publication_type" id="typeConference" value="conference">
+                            <label class="form-check-label" for="typeConference">Тезисы конференции</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="publication_type" id="typeProceedings" value="proceedings">
+                            <label class="form-check-label" for="typeProceedings">Материалы конференции</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блок для журнала (скрыт по умолчанию) -->
+                <div id="journalBlock" style="display: none;">
+                    <h5>Журнал</h5>
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="journal_option" id="journalExisting" value="existing" checked>
+                            <label class="form-check-label" for="journalExisting">Выбрать существующий журнал</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="journal_option" id="journalNew" value="new">
+                            <label class="form-check-label" for="journalNew">Создать новый журнал</label>
+                        </div>
+                    </div>
+
+                    <!-- Выбор существующего журнала -->
+                    <div id="journalExistingSelect">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="id_existing_journal" name="existing_journal">
+                                <option value="">Выберите журнал</option>
+                                <!-- Журналы будут подгружаться динамически -->
+                            </select>
+                            <label for="id_existing_journal">Журнал</label>
+                        </div>
+                    </div>
+
+                    <!-- Форма для нового журнала -->
+                    <div id="journalNewForm" style="display: none;">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="id_journal_title" name="journal_title" required>
+                            <label for="id_journal_title">Название журнала*</label>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="id_quartile" name="quartile">
+                                        <option value="Q1">Q1</option>
+                                        <option value="Q2">Q2</option>
+                                        <option value="Q3">Q3</option>
+                                        <option value="Q4">Q4</option>
+                                        <option value="N/A" selected>Не определен</option>
+                                    </select>
+                                    <label for="id_quartile">Квартиль</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="id_whitelist_level" name="whitelist_level">
+                                        <option value="1">Уровень 1</option>
+                                        <option value="2">Уровень 2</option>
+                                        <option value="3">Уровень 3</option>
+                                        <option value="4">Уровень 4</option>
+                                        <option value="none" selected>Не в списке</option>
+                                    </select>
+                                    <label for="id_whitelist_level">Уровень белого списка</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="url" class="form-control" id="id_journal_website" name="journal_website">
+                            <label for="id_journal_website">Сайт журнала</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блок для конференции (скрыт по умолчанию) -->
+                <div id="conferenceBlock" style="display: none;">
+                    <h5>Конференция</h5>
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="conference_option" id="conferenceExisting" value="existing" checked>
+                            <label class="form-check-label" for="conferenceExisting">Выбрать существующую конференцию</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="conference_option" id="conferenceNew" value="new">
+                            <label class="form-check-label" for="conferenceNew">Создать новую конференцию</label>
+                        </div>
+                    </div>
+
+                    <!-- Выбор существующей конференции -->
+                    <div id="conferenceExistingSelect">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="id_existing_conference" name="existing_conference">
+                                <option value="">Выберите конференцию</option>
+                                <!-- Конференции будут подгружаться динамически -->
+                            </select>
+                            <label for="id_existing_conference">Конференция</label>
+                        </div>
+                    </div>
+
+                    <!-- Форма для новой конференции -->
+                    <div id="conferenceNewForm" style="display: none;">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="id_conference_title" name="conference_title" required>
+                            <label for="id_conference_title">Название конференции*</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="id_location" name="location" required>
+                            <label for="id_location">Место проведения*</label>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="id_start_date" name="start_date" required>
+                                    <label for="id_start_date">Дата начала*</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="id_end_date" name="end_date" required>
+                                    <label for="id_end_date">Дата завершения*</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="id_status" name="status">
+                                <option value="regional">Региональная</option>
+                                <option value="national">Всероссийская</option>
+                                <option value="international_part">С международным участием</option>
+                                <option value="international">Международная</option>
+                            </select>
+                            <label for="id_status">Статус</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Общие поля публикации -->
+                <h5>Информация о публикации</h5>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="id_title" name="title" required>
+                    <label for="id_title">Название публикации*</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" id="id_abstract" name="abstract" style="height: 100px"></textarea>
+                    <label for="id_abstract">Аннотация</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="id_year" name="year" min="1900" max="{% now 'Y' %}" required>
+                    <label for="id_year">Год публикации*</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="id_doi" name="doi">
+                    <label for="id_doi">DOI</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="url" class="form-control" id="id_url" name="url">
+                    <label for="id_url">Ссылка на публикацию</label>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Сохранить публикацию
+                    </button>
+                    <a href="{% url 'author_home' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-circle"></i> Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Функция для показа/скрытия блоков в зависимости от типа публикации
+    function updatePublicationType() {
+        const publicationType = document.querySelector('input[name="publication_type"]:checked').value;
+
+        // Скрываем все блоки
+        document.getElementById('journalBlock').style.display = 'none';
+        document.getElementById('conferenceBlock').style.display = 'none';
+
+        // Показываем нужный блок
+        if (publicationType === 'journal') {
+            document.getElementById('journalBlock').style.display = 'block';
+        } else if (publicationType === 'conference' || publicationType === 'proceedings') {
+            document.getElementById('conferenceBlock').style.display = 'block';
+        }
+    }
+
+    // Обработчики для радио-кнопок типа публикации
+    document.querySelectorAll('input[name="publication_type"]').forEach(radio => {
+        radio.addEventListener('change', updatePublicationType);
+    });
+
+    // Обработчики для журнала: выбор между существующим и новым
+    document.querySelectorAll('input[name="journal_option"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'existing') {
+                document.getElementById('journalExistingSelect').style.display = 'block';
+                document.getElementById('journalNewForm').style.display = 'none';
+            } else {
+                document.getElementById('journalExistingSelect').style.display = 'none';
+                document.getElementById('journalNewForm').style.display = 'block';
+            }
+        });
+    });
+
+    // Обработчики для конференции: выбор между существующей и новой
+    document.querySelectorAll('input[name="conference_option"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'existing') {
+                document.getElementById('conferenceExistingSelect').style.display = 'block';
+                document.getElementById('conferenceNewForm').style.display = 'none';
+            } else {
+                document.getElementById('conferenceExistingSelect').style.display = 'none';
+                document.getElementById('conferenceNewForm').style.display = 'block';
+            }
+        });
+    });
+
+    // Загрузка данных по DOI
+    document.getElementById('doiLoadBtn').addEventListener('click', function() {
+        const doi = document.getElementById('doiInput').value;
+        if (!doi) {
+            alert("Пожалуйста, введите DOI");
+            return;
+        }
+
+        // Показываем индикатор загрузки
+        this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Загрузка...';
+        this.disabled = true;
+
+        fetch(`/fetch_doi_data/?doi=${encodeURIComponent(doi)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                // Заполняем поля формы
+                document.getElementById('id_title').value = data.title || '';
+                document.getElementById('id_abstract').value = data.abstract || '';
+                document.getElementById('id_year').value = data.year || new Date().getFullYear();
+                document.getElementById('id_doi').value = doi;
+                document.getElementById('id_url').value = data.url || '';
+
+                // Автоматически определяем тип публикации
+                if (data.title && data.title.toLowerCase().includes('conference')) {
+                    document.getElementById('typeConference').checked = true;
+                    updatePublicationType();
+                } else {
+                    document.getElementById('typeJournal').checked = true;
+                    updatePublicationType();
+                }
+            })
+            .catch(error => {
+                alert(`Ошибка: ${error.message}`);
+            })
+            .finally(() => {
+                // Восстанавливаем кнопку
+                this.innerHTML = 'Загрузить';
+                this.disabled = false;
+            });
+    });
+
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        // Загрузка журналов через AJAX
+        fetch('/api/journals/')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('id_existing_journal');
+                data.forEach(journal => {
+                    const option = document.createElement('option');
+                    option.value = journal.id;
+                    option.textContent = journal.title;
+                    select.appendChild(option);
+                });
+            });
+
+        // Загрузка конференций через AJAX
+        fetch('/api/conferences/')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('id_existing_conference');
+                data.forEach(conference => {
+                    const option = document.createElement('option');
+                    option.value = conference.id;
+                    option.textContent = conference.title;
+                    select.appendChild(option);
+                });
+            });
+
+        // Установка текущего года по умолчанию
+        document.getElementById('id_year').value = new Date().getFullYear();
+    });
+</script>
+{% endblock %}
