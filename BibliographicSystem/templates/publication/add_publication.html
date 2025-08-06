@@ -7,7 +7,7 @@
             <h4 class="mb-0">Добавить новую публикацию</h4>
         </div>
         <div class="card-body">
-                 <form method="post" enctype="multipart/form-data" action="{% url 'add_publication' %}">
+                 <form method="post" enctype="multipart/form-data" action="{% url 'add_publication_api' %}">
 
                 {% csrf_token %}
 

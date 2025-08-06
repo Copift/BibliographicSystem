@@ -5,45 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69545799-1fe9-4631-82a8-a9abc7d861fe" name="Changes" comment="finish">
-      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BibliographicSystem/config/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BibliographicSystem/db/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BibliographicSystem/db/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/api/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/api/v1/conference/list.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/api/v1/journals/list.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/api/v1/publication/add.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/api/v1/publication/fetchDoi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/author/HomeView.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/author/LoginView.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/author/ProfileView.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/author/UpdateView.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/conference/DetailView.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/journal/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/publication/AddView.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/publication/DetailView.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/publication/ListView.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/BibliographicSystem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BibliographicSystem.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/config/asgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/author/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/forms/author.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/author/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/models/author.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/author/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/author.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/conference/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/forms/conference.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/conference/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/models/conference.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/conference/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/conference.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/journal/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/forms/journal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/journal/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/models/journal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/journal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/journal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/db/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/migrations/0002_rename_article_url_publication_url_conference_and_more.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/db/migrations/0002_rename_article_url_publication_url_conference_and_more.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/migrations/0003_mymodel_journal_title_ru.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/db/migrations/0003_mymodel_journal_title_ru.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/migrations/0004_alter_publication_options_and_more.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/db/migrations/0004_alter_publication_options_and_more.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/migrations/0005_alter_journal_options_rename_title_en_journal_title_and_more.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/db/migrations/0005_alter_journal_options_rename_title_en_journal_title_and_more.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/forms/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/publication/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/forms/publication.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/publication/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/publication/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/models/publication.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/publication/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/publication.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BibliographicSystem/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/config/wsgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/createNewFile/BibliographicSystem/conference/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/createNewFile/BibliographicSystem/journal/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/createNewFile/BibliographicSystem/publication/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/employees/avatar.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/media/avatars/avatar.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/employees/avatar.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliographicSystem/app/views/author.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliographicSystem/app/views/conference.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliographicSystem/app/views/journal.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/app/views/journal/DetailView.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliographicSystem/app/views/publication.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliographicSystem/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/config/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliographicSystem/templates/author_home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliographicSystem/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliographicSystem/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/templates/author/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliographicSystem/templates/publication/add_publication.html" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/templates/publication/add_publication.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BibliographicSystem/templates/publication/publication_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/BibliographicSystem/templates/publication/publication_base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,11 +127,11 @@
       <recent name="$PROJECT_DIR$/BibliographicSystem/config" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/BibliographicSystem/templates/author" />
+      <recent name="$PROJECT_DIR$/BibliographicSystem/app/views/journal" />
       <recent name="$PROJECT_DIR$/BibliographicSystem" />
       <recent name="$PROJECT_DIR$/BibliographicSystem/db" />
       <recent name="$PROJECT_DIR$/BibliographicSystem/config" />
-      <recent name="$PROJECT_DIR$/BibliographicSystem/app" />
-      <recent name="$PROJECT_DIR$/BibliographicSystem/app/views" />
     </key>
   </component>
   <component name="RunManager" selected="Django Server.BibliographicSystem">
@@ -249,7 +237,7 @@
       <workItem from="1750676051657" duration="10405000" />
       <workItem from="1750870745577" duration="2556000" />
       <workItem from="1751095954502" duration="10627000" />
-      <workItem from="1754459747049" duration="7798000" />
+      <workItem from="1754459747049" duration="14782000" />
     </task>
     <task id="LOCAL-00001" summary="create structure of project">
       <option name="closed" value="true" />
@@ -275,7 +263,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754464645220</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="finish">
+      <option name="closed" value="true" />
+      <created>1754475209459</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1754475209459</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

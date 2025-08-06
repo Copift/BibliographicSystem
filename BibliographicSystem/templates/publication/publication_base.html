@@ -11,10 +11,9 @@
 
     <p class="mb-1">
         {% for author in publication.authors.all %}
-            <a href="{% url 'author_profile
-            ' author.pk %}" class="text-decoration-none">
-                {{ author.last_name }} {{ author.first_name }}
-            </a>{% if not forloop.last %}, {% endif %}
+{#            <a href="{% url 'author_profile' author.pk %}" class="text-decoration-none">#}
+{#                {{ author.last_name }} {{ author.first_name }}#}
+{#            </a>{% if not forloop.last %}, {% endif %}#}
         {% endfor %}
     </p>
 
