@@ -1,0 +1,54 @@
+{% extends "../base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h1>{{ conference.title }}</h1>
+            
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5>Место проведения:</h5>
+                    <p>{{ conference.location }}</p>
+                </div>
+                
+                <div class="col-md-6">
+                    <h5>Даты проведения:</h5>
+                    <p>{{ conference.start_date|date:"d E Y" }} - {{ conference.end_date|date:"d E Y" }}</p>
+                </div>
+                
+                <div class="col-md-6">
+                    <h5>Статус:</h5>
+                    <p>{{ conference.get_status_display }}</p>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Публикации на конференции</h3>
+            
+            {% if publications %}
+            <div class="list-group">
+                {% for publication in publications %}
+                <a href="{% url 'publication_detail' publication.pk %}" 
+                   class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ publication.title }}</h5>
+                        <small class="text-muted">{{ publication.year }}</small>
+                    </div>
+                    
+                    <p class="mb-1">
+                        {% for author in publication.authors.all %}
+                            {{ author.last_name }} {{ author.first_name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                На этой конференции пока нет публикаций
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
