@@ -4,23 +4,8 @@ from BibliographicSystem.author.models import Author
 
 
 class Publication(models.Model):
-    PUBLICATION_TYPES = [
-        ('journal', 'Статья в журнале'),
-        ('conference', 'Тезисы конференции'),
-        ('proceedings', 'Материалы конференции'),
-    ]
 
-    publication_type = models.CharField(
-        "Тип публикации",
-        max_length=20,
-        choices=PUBLICATION_TYPES
-    )
-    journal_or_conference = models.CharField(
-        "Журнал/Конференция",
-        max_length=255
-    )
-    title_ru = models.CharField("Название (рус)", max_length=500)
-    title_en = models.CharField(
+    title = models.CharField(
         "Название (англ)",
         max_length=500,
         blank=True
@@ -32,7 +17,7 @@ class Publication(models.Model):
         "Дата добавления",
         auto_now_add=True
     )
-    article_url = models.URLField("Ссылка на статью", blank=True)
+    url = models.URLField("Ссылка на статью", blank=True)
     authors = models.ManyToManyField(
         Author,
         related_name='publications',
@@ -42,7 +27,7 @@ class Publication(models.Model):
     class Meta:
         verbose_name = "Публикация"
         verbose_name_plural = "Публикации"
-        ordering = ['-year', 'title_ru']
+        ordering = ['title' ]
 
     def __str__(self):
-        return f"{self.title_ru} ({self.year})"
+        return f"{self.title} ({self.year})"
